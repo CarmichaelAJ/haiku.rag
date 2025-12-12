@@ -15,6 +15,7 @@ VLLM_QA_AVAILABLE = bool(Config.providers.vllm.qa_base_url)
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI judge not available")
 async def test_qa_ollama(qa_corpus: Dataset, temp_db_path):
     """Test Ollama QA with LLM judge."""
     client = HaikuRAG(temp_db_path, create=True)
@@ -40,7 +41,7 @@ async def test_qa_ollama(qa_corpus: Dataset, temp_db_path):
 
 
 @pytest.mark.asyncio
-@pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI not available")
+@pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI judge not available")
 async def test_qa_openai(qa_corpus: Dataset, temp_db_path):
     """Test OpenAI QA with LLM judge."""
     client = HaikuRAG(temp_db_path, create=True)
@@ -64,6 +65,7 @@ async def test_qa_openai(qa_corpus: Dataset, temp_db_path):
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI judge not available")
 @pytest.mark.skipif(not ANTHROPIC_AVAILABLE, reason="Anthropic not available")
 async def test_qa_anthropic(qa_corpus: Dataset, temp_db_path):
     """Test Anthropic QA with LLM judge."""
@@ -90,6 +92,7 @@ async def test_qa_anthropic(qa_corpus: Dataset, temp_db_path):
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI judge not available")
 @pytest.mark.skipif(not VLLM_QA_AVAILABLE, reason="vLLM QA server not configured")
 async def test_qa_vllm(qa_corpus: Dataset, temp_db_path):
     """Test vLLM QA with LLM judge."""

@@ -188,13 +188,18 @@ async def run_retrieval_benchmark(
         eval_name = name if name is not None else f"{spec.key}_retrieval_evaluation"
 
         judge_config = ModelConfig(
-            provider="ollama", name="gpt-oss", enable_thinking=False
+            provider="openai", name="o4-mini-2025-04-16", enable_thinking=False
         )
         experiment_metadata = build_experiment_metadata(
             dataset_key=spec.key,
             test_cases=len(cases),
             config=config,
             judge_config=judge_config,
+        )
+
+        console.print(
+            f"Evaluating retrieval benchmark '{eval_name}' on {len(cases)} queries...",
+            style="dim",
         )
 
         report = await dataset.evaluate(
@@ -219,6 +224,7 @@ async def run_retrieval_benchmark(
     console.print(f"Dataset: {spec.key}")
     console.print(f"Total queries: {len(cases)}")
     console.print(f"{metric_name}: {mean_score:.4f}")
+    console.print(f"Completed retrieval benchmark '{eval_name}'.", style="dim")
 
     return {
         metric_name.lower(): mean_score,
@@ -242,7 +248,9 @@ async def run_qa_benchmark(
         for index, doc in enumerate(corpus, start=1)
     ]
 
-    judge_config = ModelConfig(provider="ollama", name="gpt-oss", enable_thinking=False)
+    judge_config = ModelConfig(
+        provider="openai", name="o4-mini-2025-04-16", enable_thinking=False
+    )
     judge_model = get_model(judge_config, config)
 
     evaluation_dataset = EvalDataset[str, str, dict[str, str]](
@@ -280,6 +288,11 @@ async def run_qa_benchmark(
             judge_config=judge_config,
         )
 
+        console.print(
+            f"Evaluating QA benchmark '{eval_name}' on {len(cases)} questions...",
+            style="dim",
+        )
+
         report = await evaluation_dataset.evaluate(
             answer_question,
             name=eval_name,
@@ -304,6 +317,7 @@ async def run_qa_benchmark(
     console.print(f"Total questions: {total_cases}")
     console.print(f"Correct answers: {passing_cases}")
     console.print(f"QA Accuracy: {accuracy:.4f} ({accuracy * 100:.2f}%)")
+    console.print(f"Completed QA benchmark '{eval_name}'.", style="dim")
 
     if failures:
         console.print("[red]\nSummary of failures:[/red]")

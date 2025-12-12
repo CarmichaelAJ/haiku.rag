@@ -133,7 +133,7 @@ This example demonstrates the **agent+graph** architecture pattern:
 Configuration is done through `haiku.rag.yaml` (see `haiku.rag.yaml.example`):
 
 - `research.provider`: LLM provider (default: `ollama`)
-- `research.model`: Model name (default: `gpt-oss:latest`)
+- `research.model`: Model name (default: `gpt-oss-latest`)
 - `research.max_iterations`: Maximum research iterations (default: `3`)
 - `research.confidence_threshold`: Confidence threshold for completion (default: `0.8`)
 - `research.max_concurrency`: Parallel sub-question processing (default: `1`)

@@ -68,12 +68,13 @@ def get_model(
 
     provider = model_config.provider
     model = model_config.name
+    model_base = model.split(":", 1)[0]
 
     if provider == "ollama":
         model_settings = None
 
         # Apply thinking control for gpt-oss
-        if model == "gpt-oss" and model_config.enable_thinking is not None:
+        if model_base == "gpt-oss" and model_config.enable_thinking is not None:
             if model_config.enable_thinking is False:
                 model_settings = OpenAIChatModelSettings(openai_reasoning_effort="low")
             else:
@@ -216,7 +217,7 @@ def get_model(
         vllm_settings = None
 
         # Apply thinking control for gpt-oss
-        if model == "gpt-oss" and model_config.enable_thinking is not None:
+        if model_base == "gpt-oss" and model_config.enable_thinking is not None:
             if model_config.enable_thinking is False:
                 vllm_settings = OpenAIChatModelSettings(openai_reasoning_effort="low")
             else:
@@ -239,7 +240,7 @@ def get_model(
         model_settings = None
 
         # Apply thinking control for gpt-oss
-        if model == "gpt-oss" and model_config.enable_thinking is not None:
+        if model_base == "gpt-oss" and model_config.enable_thinking is not None:
             if model_config.enable_thinking is False:
                 model_settings = OpenAIChatModelSettings(openai_reasoning_effort="low")
             else:

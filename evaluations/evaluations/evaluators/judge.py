@@ -36,9 +36,13 @@ class LLMJudgeResponseSchema(BaseModel):
 class LLMJudge:
     """LLM-as-judge for evaluating answer equivalence using Pydantic AI."""
 
-    def __init__(self, model: str = "gpt-oss"):
+    def __init__(
+        self,
+        provider: str = "openai",
+        model: str = "o4-mini-2025-04-16",
+    ):
         # Create model using get_model with thinking disabled
-        model_config = ModelConfig(provider="ollama", name=model, enable_thinking=False)
+        model_config = ModelConfig(provider=provider, name=model, enable_thinking=False)
         model_obj = get_model(model_config, Config)
 
         # Create Pydantic AI agent

@@ -147,8 +147,8 @@ def test_get_model_ollama():
 
 
 def test_get_model_ollama_without_thinking():
-    """Test get_model configures thinking for gpt-oss on Ollama."""
-    model_config = ModelConfig(provider="ollama", name="gpt-oss", enable_thinking=False)
+    """Test get_model configures thinking for qwen3-vl:8b on Ollama."""
+    model_config = ModelConfig(provider="ollama", name="qwen3-vl:8b", enable_thinking=False)
     result = get_model(model_config)
     assert isinstance(result, OpenAIChatModel)
 
@@ -278,8 +278,8 @@ def test_get_model_vllm():
 
 
 def test_get_model_vllm_with_thinking():
-    """Test get_model configures thinking for gpt-oss on vLLM."""
-    model_config = ModelConfig(provider="vllm", name="gpt-oss", enable_thinking=False)
+    """Test get_model configures thinking for qwen3-vl:8b on vLLM."""
+    model_config = ModelConfig(provider="vllm", name="qwen3-vl:8b", enable_thinking=False)
     result = get_model(model_config)
     assert isinstance(result, OpenAIChatModel)
 

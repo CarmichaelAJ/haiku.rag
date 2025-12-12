@@ -18,7 +18,7 @@ class ModelConfig(BaseModel):
     """
 
     provider: str = "ollama"
-    name: str = "gpt-oss"
+    name: str = "qwen3-vl:8b"
 
     enable_thinking: bool | None = None
     temperature: float | None = None
@@ -70,7 +70,7 @@ class QAConfig(BaseModel):
     model: ModelConfig = Field(
         default_factory=lambda: ModelConfig(
             provider="ollama",
-            name="gpt-oss",
+            name="qwen3-vl:8b",
             enable_thinking=False,
         )
     )
@@ -83,7 +83,7 @@ class ResearchConfig(BaseModel):
     model: ModelConfig = Field(
         default_factory=lambda: ModelConfig(
             provider="ollama",
-            name="gpt-oss",
+            name="qwen3-vl:8b",
             enable_thinking=False,
         )
     )
